@@ -1,5 +1,7 @@
 const btnStart = document.querySelector(".start")
 const btnStop = document.querySelector(".stop")
+const goBack = document.querySelector("a")
+console.dir(goBack)
 let intervalID = 0
 
 btnStart.addEventListener("click", onStart)
@@ -9,11 +11,12 @@ function onStart() {
     btnStart.disabled = true
     btnStop.disabled = false
     intervalID = setInterval(() => { 
-        document.body.style.backgroundColor = getRandomHexColor();
+        newColor = getRandomHexColor()
+        document.body.style.backgroundColor = newColor;
+        goBack.style.color = newColor
+        goBack.style.filter = "invert(100%)"
     }, 1000)
-    // body.style.backgroundColor = getRandomHexColor()
-    document.body.style.backgroundColor = getRandomHexColor();
-
+    
 }
 
 function onStop() {

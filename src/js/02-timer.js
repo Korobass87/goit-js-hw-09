@@ -1,20 +1,29 @@
 import flatpickr from "flatpickr";
-import 'flatpickr/dist/flatpickr.min.css'
+import 'flatpickr/dist/flatpickr.min.css';
+import Notiflix from 'notiflix';
+import 'notiflix/dist/notiflix-3.2.2.min.css';
+
+
+Notiflix.Notify.init({
+  width: '530px',
+  position: 'center-center',
+  fontSize: '30px',
+  
+});
+
 const timerBtn = document.querySelector("button[data-start]")
 const inputData = document.querySelector("#datetime-picker")
 const dayTimer = document.querySelector("[data-days]")
-
 const hoursTimer = document.querySelector("[data-hours]")
-
 const minutesTimer = document.querySelector("[data-minutes]")
-
 const secondsTimer = document.querySelector("[data-seconds]")
-
 let dataSelected = 0
 timerBtn.disabled = true
 let timeBefore = 0
 let intervalId = 0
 
+
+  
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -25,7 +34,8 @@ const options = {
         if (selectedDates[0] > new Date()) {
             timerBtn.disabled = false
         } else {
-            alert('Please choose a date in the future')
+
+            Notiflix.Notify.failure('Please choose a date in the future');
             } 
     console.log(selectedDates[0]);
   },
@@ -35,7 +45,6 @@ const options = {
 const fp = flatpickr(inputData, options)
 
 timerBtn.addEventListener('click', onStart)
-
 inputData.addEventListener('input', onInput)
 
 function onInput() {
@@ -46,11 +55,12 @@ function onStart() {
     
     intervalId = setInterval(() => {
         timeBefore = dataSelected - new Date()
-        if ((convertMs(timeBefore).seconds) === 0) {
-            clearInterval(intervalId)
-            alert("Время вышло!!!")
+        if ((convertMs(timeBefore).seconds) === 0 && (convertMs(timeBefore).minutes) === 0 && (convertMs(timeBefore).hours) && (convertMs(timeBefore).days) ) {
+          clearInterval(intervalId)
+          Notiflix.Notify.success("Время вышло!!!");
+           
         }
-        console.log(convertMs(timeBefore).minutes)
+        
         dayTimer.textContent = pad(convertMs(timeBefore).days)
         hoursTimer.textContent = pad(convertMs(timeBefore).hours)
         minutesTimer.textContent = pad(convertMs(timeBefore).minutes)
