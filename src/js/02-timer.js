@@ -45,6 +45,7 @@ const options = {
 const fp = flatpickr(inputData, options)
 
 timerBtn.addEventListener('click', onStart)
+
 inputData.addEventListener('input', onInput)
 
 function onInput() {
@@ -55,7 +56,7 @@ function onStart() {
     
     intervalId = setInterval(() => {
         timeBefore = dataSelected - new Date()
-        if ((convertMs(timeBefore).seconds) === 0 && (convertMs(timeBefore).minutes) === 0 && (convertMs(timeBefore).hours) && (convertMs(timeBefore).days) ) {
+        if ((convertMs(timeBefore).seconds) === 0 && (convertMs(timeBefore).minutes) === 0 && (convertMs(timeBefore).hours) === 0 && (convertMs(timeBefore).days) === 0 ) {
           clearInterval(intervalId)
           Notiflix.Notify.success("Время вышло!!!");
            
